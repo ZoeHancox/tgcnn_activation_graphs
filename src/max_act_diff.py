@@ -3,7 +3,9 @@ import numpy as np
 from src import calculations, figures
 
 def create_max_act_df(class_name:str, pat_graphs:np.array, filters:np.array, labels:list, verbose:bool):
-    """_summary_
+    """Calculate the maximum activation from each filter on each patient graph. Running a filter over
+    each patient graph and getting the max. 
+    Assumes a stride length of one.
 
     Args:
         class_name (str): name to describe prediction outcome.
@@ -13,10 +15,10 @@ def create_max_act_df(class_name:str, pat_graphs:np.array, filters:np.array, lab
         verbose (bool): print or not to print extra dataframes or print statements.
 
     Raises:
-        ValueError: if numpy array isn't 4D
+        ValueError: if numpy array isn't 4D.
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: dataframe with columns for filter number, maximum activation and chosen class_name string.
     """
     if pat_graphs.ndim != 4:
         raise ValueError("The input array must be 4-dimensional.") # 4D to have multiple patients 3D graph representations
@@ -60,7 +62,7 @@ def create_max_act_df(class_name:str, pat_graphs:np.array, filters:np.array, lab
     return df
 
 def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, labels:list, verbose:bool):
-    """_summary_
+    """Calculate the max difference between the classes for each filter and return in a dataframe.
 
     Args:
         class_name (str): name to describe prediction outcome.
@@ -73,7 +75,7 @@ def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, lab
         pd.DataFrame: difference between graph activation in both classes.
     """
 
-    max_act_per_filt_df = create_max_act_df(class_name, pat_graphs, filters, labels, verbose=False)
+    max_act_per_filt_df = create_max_act_df(class_name, pat_graphs, filters, labels, verbose)
     mean_activation = max_act_per_filt_df.groupby(['Filter', class_name])['Max Activation'].mean()
     mean_activation_df = mean_activation.to_frame()
     mean_activation_df.reset_index(inplace=True)
