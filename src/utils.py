@@ -12,15 +12,16 @@ def extract_visit_number(s):
     """
     return int(s.split('_')[1][1:])
 
-def get_max_act_filt(mean_activation_df:pd.DataFrame):
+def get_max_act_filt(mean_activation_df:pd.DataFrame, filters:np.array):
     """Using the dataframe of acitvation difference select the filter with the largest difference.
 
     Args:
         mean_activation_df (pd.DataFrame): dataframe with difference in activation between positive and negative class 
         for each filter.
+        filters (np.array): 4D array with 3D filters.
 
     Returns:
-        np.array: 3D array representing one filter
+        np.array: 3D array representing one filter.
     """
 
     max_idx = mean_activation_df['Difference'].idxmax()
