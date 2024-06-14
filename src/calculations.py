@@ -3,7 +3,7 @@ import numpy as np
 
 # TODO TEST HERE FOR CHECKING WHETHER A FRACTIONAL DIVISION PRODUCES A CORRECT ARRAY
 
-def repeat_array_fractional(array, repeats):
+def repeat_array_fractional(array: np.ndarray, repeats: float):
     """
     Repeats the filter array a specified non-integer number of times.
     This is because the graph may divide fractionally compared to the filter size.
@@ -36,5 +36,16 @@ def repeat_array_fractional(array, repeats):
 
     return result_array
 
-def leaky_relu(x, alpha=0.01):
+def leaky_relu(x:float, alpha:int):
+    """If the activation is negative multiply it by alpha,
+    otherwise retain the alpha value.
+    This is to avoid 0 gradients.
+
+    Args:
+        x (float): activation sum
+        alpha (int): hyperparameter to select or tune
+
+    Returns:
+        float: activation sum with leaky ReLU applied
+    """
     return max(alpha * x, x) # if it's negative multiply by 0.01
