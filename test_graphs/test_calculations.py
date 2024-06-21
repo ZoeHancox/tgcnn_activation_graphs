@@ -1,11 +1,76 @@
 import pytest
-
+import numpy as np
 from src import utils, max_act_diff, figures, calculations
 
+test_pats = np.array([[[[0, 0, 0], 
+                          [0, 0, 3], 
+                          [0, 0, 0]], [[0, 0, 0],
+                                       [0, 0, 0],
+                                       [0, 4, 4]], [[0, 0, 0], 
+                                                    [0, 2, 0], 
+                                                    [0, 2, 0]], [[0, 0, 0], 
+                                                                 [5, 0, 5], 
+                                                                 [0, 0, 0]]],                        
+                        [[[1, 0, 0], 
+                          [1, 0, 0], 
+                          [1, 0, 0]], [[0, 0, 0],
+                                       [0, 8, 0],
+                                       [0, 0, 0]], [[0, 11, 0], 
+                                                    [0, 0, 0], 
+                                                    [0, 11, 0]], [[0, 0, 30], 
+                                                                 [0, 0, 30], 
+                                                                 [0, 0, 30]]],                       
+                          
+                          [[[0, 0, 9], 
+                          [0, 0, 0], 
+                          [0, 0, 0]], [[0, 0, 0],
+                                       [7, 0, 0],
+                                       [7, 0, 0]], [[0, 0, 0], 
+                                                    [0, 0, 2], 
+                                                    [0, 0, 0]], [[0, 0, 0], 
+                                                                 [1, 0, 0], 
+                                                                 [0, 0, 0]]],                          
+                          [[[1, 1, 1], 
+                          [0, 0, 0], 
+                          [0, 0, 0]], [[0, 0, 1],
+                                       [0, 0, 1],
+                                       [0, 0, 0]], [[0, 0, 0], 
+                                                    [0, 1, 0], 
+                                                    [0, 1, 0]], [[0, 2, 0], 
+                                                                 [0, 0, 0], 
+                                                                 [0, 2, 0]]]]
+                        
+                        )
 
-# test_pats =
-# test_filts = 
+test_filts = np.array([[[[0, 0, 1], 
+                    [0, 1, 0], 
+                    [0, 0, 1]], [[1, 1, 0], 
+                                 [0, 0, 0], 
+                                 [0, 0, 0]]], 
+                   [[[0, 1, 0], 
+                    [0, 1, 0], 
+                    [0, 0, 1]], [[1, 0, 0], 
+                                 [0, 0, 0], 
+                                 [0, 0, 0]]]])
 
+
+test_pat = np.array([[[0, 0, 0], 
+                        [0, 0, 3], 
+                        [0, 0, 0]], [[0, 0, 0],
+                                    [0, 0, 0],
+                                    [0, 4, 4]], [[0, 0, 0], 
+                                                [0, 2, 0], 
+                                                [0, 2, 0]], [[0, 0, 0], 
+                                                                [5, 0, 5], 
+                                                                [0, 0, 0]]])
+
+test_filt = np.array([[[0, 0, 1], 
+                        [0, 1, 0], 
+                        [0, 0, 1]], [[1, 1, 0], 
+                                        [0, 0, 0], 
+                                        [0, 0, 0]]])
+
+labels = [0, 1, 1, 0] #hip_replacement labels
 
 def test_y_coord_list_gen():
     """Test the lists generated for the y coordinates of the nodes
@@ -29,17 +94,44 @@ def test_y_coord_list_gen():
     assert test_ans3 == true_ans3, "The two lists should be equal"
 
 
-# How pos dictionary should look:
+def test_pos_dict():
+    """ Test that the y coordinate dictionaries have the same keys and values.
+    The dictionaries may not match exactly as the y coordinate is dependent on the order of the
+    DataFrame.
+    """
+    # How pos dictionary should look:
+    pos_true = {
+        '1_v0': (0, 0),
+        '2_v1': (1, 0),
+        '1_v2': (2, 1),
+        '2_v2': (2, -1),
+        '1_v3': (3, 0),
+        '0_v4': (4, 1),
+        '2_v4': (4, -1)
+    }
 
-# pos = {
-#     '1_v0': (0, 0),
-#     '2_v1': (1, 0),
-#     '1_v2': (2, 1),
-#     '2_v2': (2, -1),
-#     '1_v3': (3, 0),
-#     '0_v4': (4, 1),
-#     '2_v4': (4, -1)
-# }
+    # Code chunk to get y position dictionary
+    mean_activation_df = max_act_diff.max_act_diff_calc('Hip Replacement', test_pats, test_filts, labels, verbose=False, show_plot=False)
+    max_act_filt = utils.get_max_act_filt(mean_activation_df, test_filts)
+    act_graph = calculations.get_act_graph_array(test_pat, max_act_filt)
+    edges_df = utils.create_edges_df(test_pat, act_graph)
+    pos_df = utils.create_position_df(edges_df)
+    pos_list = utils.generate_pos_sequence(pos_df['max_codes_per_visit'].max())
+    pos_df = utils.map_y_coord_to_node(pos_df, pos_list)
+    pos_test = utils.create_pos_dict(pos_df)
+
+
+    pos_true_keys = set(pos_true.keys())
+    pos_test_keys = set(pos_test.keys())
+
+    pos_true_values = set(pos_true.values())
+    pos_test_values = set(pos_test.values())
+
+    assert pos_true_keys == pos_test_keys, "The keys of dictionaries of pos_true and pos_test should be equal"
+    assert pos_true_values == pos_test_values, "The values of dictionaries of pos_true and pos_test should be equal"
+
+
+
 
 # How edges list should look:
 
