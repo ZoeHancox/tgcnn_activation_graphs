@@ -114,3 +114,18 @@ def generate_pos_sequence(x):
             sublist.remove(0)
             sequence.append(sublist)
     return sequence
+
+
+def get_pos_y_value_per_node(row, pos_list):
+    """Get the y position for each node. Use max_codes_per_visit column to select the sublist 
+    and the cumulative_count to get the position from the sublist.
+
+    Args:
+        row (pd.Series): row of the DataFrame
+
+    Returns:
+        int: y coordinate position 
+    """
+    cum_count = row['cumulative_count']
+    max_codes = row['max_codes_per_visit']
+    return pos_list[max_codes - 1][cum_count]
