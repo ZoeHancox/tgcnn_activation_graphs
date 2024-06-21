@@ -40,6 +40,7 @@ def get_max_act_filt(mean_activation_df:pd.DataFrame, filters:np.array):
     max_idx = mean_activation_df['Difference'].idxmax()
     max_act_filt_num = mean_activation_df.loc[max_idx, 'Filter']
     max_act_filt =  filters[max_act_filt_num-1] # minus 1 as we don't have a filter called 0
+    print(f"Filter {max_act_filt_num} had the largest difference in activation.")
     return max_act_filt
 
 
