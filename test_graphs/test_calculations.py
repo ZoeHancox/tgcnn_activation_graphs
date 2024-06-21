@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+import pandas as pd
 from src import utils, max_act_diff, figures, calculations
 
 test_pats = np.array([[[[0, 0, 0], 
@@ -131,16 +132,18 @@ def test_pos_dict():
     assert pos_true_values == pos_test_values, "The values of dictionaries of pos_true and pos_test should be equal"
 
 
+def test_edge_weight():
+    """Test that the weight of the activated edge in the test patient is calculated correctly.
+    """
 
+    true_weight1 = 2.0
+    
+    mean_activation_df = max_act_diff.max_act_diff_calc('Hip Replacement', test_pats, test_filts, labels, verbose=False, show_plot=False)
+    max_act_filt = utils.get_max_act_filt(mean_activation_df, test_filts)
+    act_graph = calculations.get_act_graph_array(test_pat, max_act_filt)
+    edges_df = utils.create_edges_df(test_pat, act_graph)
 
-# How edges list should look:
+    test_weight1 = edges_df.loc[edges_df['activated']==1, 'weight'].astype(float).values
 
-# edges = [
-#     ('1_v0', '2_v1', {'activated': 0, 'weight': 0.5, 'edge_label': 3}),
-#     ('2_v1', '1_v2', {'activated': 0, 'weight': 0.5, 'edge_label': 4}),
-#     ('2_v1', '2_v2', {'activated': 0, 'weight': 0.5, 'edge_label': 4}),
-#     ('1_v2', '1_v3', {'activated': 1, 'weight': 2, 'edge_label': 2}),
-#     ('2_v2', '1_v3', {'activated': 0, 'weight': 0.5, 'edge_label': 2}),
-#     ('1_v3', '0_v4', {'activated': 0, 'weight': 0.5, 'edge_label': 5}),
-#     ('1_v3', '2_v4', {'activated': 0, 'weight': 0.5, 'edge_label': 5})
-# ]
+    assert true_weight1 == test_weight1, "The weight of this edge should be 2."
+
