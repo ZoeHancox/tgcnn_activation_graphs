@@ -147,3 +147,14 @@ def test_edge_weight():
 
     assert true_weight1 == test_weight1, "The weight of this edge should be 2."
 
+def test_extract_visit_num():
+    """Test the extracted visit number is the visit number and not the node number.
+    """
+    string = "5_v2"
+    true_visit_num = 2
+    false_visit_num = 5
+    test_visit_num = utils.extract_visit_number(string)
+
+    assert true_visit_num == test_visit_num, "True visit number should equal test visit number"
+    assert false_visit_num != test_visit_num, "True visit number should equal test visit number not EHR code number"
+
