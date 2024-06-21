@@ -143,3 +143,18 @@ def map_y_coord_to_node(pos_df, pos_list):
     """
     pos_df['y'] = pos_df.apply(lambda row: get_pos_y_value_per_node(row, pos_list), axis=1)
     return pos_df
+
+def create_pos_dict(pos_df):
+    """Make a dictionary with the node name as the key and the x and y coordinates 
+    as a tuple value.
+
+    Args:
+        pos_df (pd.DataFrame): dataframe with columns for the node name, x coordinates,
+        and y coordinates.
+
+    Returns:
+        dict: dictionary of node: (x,y)
+    """
+    # the visit number is x and the y value is the number of nodes with the same visit number
+    pos = pos_df.set_index('node')[['x', 'y']].apply(tuple, axis=1).to_dict()
+    return pos
