@@ -73,3 +73,22 @@ def create_edges_df(patient_graph, act_graph):
     # change 0 weights to 0.5 so we can still see them on the graph figure
     edges_df['weight'] = edges_df['weight'].apply(lambda x: 0.5 if x == 0 else x)
     return edges_df
+
+
+def create_position_df(edges_df):
+    """Create a DataFrame to find the number of nodes per visit.
+
+    Args:
+        edges_df (pd.DataFrame): DataFrame with columns start_node, end_node, activated, weight, time_between.
+
+    Returns:
+        pd.DataFrame: with columns showing node name (node), visit number (x), node number in visits (cumulative count),
+        and maximum codes per visit.
+    """
+    pos_df = edges_df[['start_node', 'end_node']].stack().drop_duplicates().reset_index(drop=True)
+    pos_df = pos_df.to_frame(name='node')
+    pos_df['x'] = pos_df['node'].apply(extract_visit_number)
+    pos_df['cumulative_count'] = pos_df.groupby('x').cumcount()
+    pos_df['max_codes_per_visit'] = pos_df.groupby('x')['cumulative_count'].transform('max') + 1
+
+    return pos_df
