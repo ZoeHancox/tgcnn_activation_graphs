@@ -1,8 +1,6 @@
 import numpy as np
 
 
-# TODO TEST HERE FOR CHECKING WHETHER A FRACTIONAL DIVISION PRODUCES A CORRECT ARRAY
-
 def repeat_array_fractional(array: np.ndarray, repeats: float):
     """
     Repeats the filter array a specified non-integer number of times.
