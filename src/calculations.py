@@ -70,7 +70,7 @@ def get_act_graph_array(pat_graph: np.array, max_act_filt: np.array):
 
     vectorized_leaky_relu = np.vectorize(leaky_relu)
     
-    filt_num_repeats = int(pat_graph.shape[0]/max_act_filt.shape[0])
+    filt_num_repeats = pat_graph.shape[0]/max_act_filt.shape[0]
 
 
     # To reduce compute repeat the filter to be the same size as the patient graph.
