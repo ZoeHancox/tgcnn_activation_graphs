@@ -158,3 +158,10 @@ def test_extract_visit_num():
     assert true_visit_num == test_visit_num, "True visit number should equal test visit number"
     assert false_visit_num != test_visit_num, "True visit number should equal test visit number not EHR code number"
 
+# TODO: Test that the repeat_array_fractional function is repeating correctly
+
+
+# def test_repeat_array_fractional():
+#     """Test to make sure filter is repeating correctly.
+#     """
+    
