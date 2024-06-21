@@ -92,3 +92,25 @@ def create_position_df(edges_df):
     pos_df['max_codes_per_visit'] = pos_df.groupby('x')['cumulative_count'].transform('max') + 1
 
     return pos_df
+
+
+def generate_pos_sequence(x):
+    """Generate a list of lists to get y coordinate positions for the nodes
+     based on the number of events recorded per visit.
+
+    Args:
+        x (int): maximum number of nodes in any one visit
+
+    Returns:
+        List: List of lists of y coordinates depending on the max nodes for
+               each visit.
+    """
+    sequence = []
+    for i in range(x):
+        if i % 2 == 0:  # Even index, include zero
+            sequence.append(list(range(-i // 2, i // 2 + 1)))
+        else:  # Odd index, exclude zero
+            sublist = list(range(-(i // 2 + 1), i // 2 + 2))
+            sublist.remove(0)
+            sequence.append(sublist)
+    return sequence
