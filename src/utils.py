@@ -141,5 +141,5 @@ def map_y_coord_to_node(pos_df, pos_list):
     Returns:
         pd.DataFrame: dataframe with x and y coordinates for node plotting.
     """
-    pos_df['y'] = pos_df.apply(lambda row: utils.get_pos_y_value_per_node(row, pos_list), axis=1)
+    pos_df['y'] = pos_df.apply(lambda row: get_pos_y_value_per_node(row, pos_list), axis=1)
     return pos_df
