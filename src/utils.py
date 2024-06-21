@@ -102,7 +102,7 @@ def generate_pos_sequence(x):
         x (int): maximum number of nodes in any one visit
 
     Returns:
-        List: List of lists of y coordinates depending on the max nodes for
+        List: List of lists of y coordinates index mapping to the max nodes for
                each visit.
     """
     sequence = []
@@ -129,3 +129,17 @@ def get_pos_y_value_per_node(row, pos_list):
     cum_count = row['cumulative_count']
     max_codes = row['max_codes_per_visit']
     return pos_list[max_codes - 1][cum_count]
+
+def map_y_coord_to_node(pos_df, pos_list):
+    """Map the y coordinates to the relevant node and correct row.
+
+    Args:
+        pos_df (pd.DataFrame): columns with node name and x coordinate.
+        pos_list (list of lists): List of lists of y coordinates index mapping to the max nodes for
+               each visit.
+
+    Returns:
+        pd.DataFrame: dataframe with x and y coordinates for node plotting.
+    """
+    pos_df['y'] = pos_df.apply(lambda row: utils.get_pos_y_value_per_node(row, pos_list), axis=1)
+    return pos_df
