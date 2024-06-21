@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import networkx as nx
 
+from src import utils, max_act_diff, calculations
+
 def plot_activation_difference(filter_num_col:pd.DataFrame, diff_col:pd.DataFrame):
     """_summary_
 
@@ -51,3 +53,48 @@ def draw_edge_activated_graph(edges_df, pos_dict):
 
     #plt.title("Graph Visualisation of Patients Pathway and Connections Associated to Hip Replacement")
     plt.show()
+
+
+
+def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.array, verbose:bool, show_plot:bool):
+    """Draw an individual patients graph with red edges where the AI model filters have given high weights, 
+    representing which edges the patterns associate to the outcome the most. 
+
+    Args:
+        input_tensors (np.array): 4D array of patient graph representations (3D).
+        patient_number (int): Patient to represent as a graph.
+        filters (np.array): 4D array of filters from the TG-CNN model (3D).
+        verbose (bool): Print extra statements.
+        show_plot (bool): Print the maximum activation per filter plot.
+    """
+
+    # 1. Select the patient graph to draw
+    patient_graph = utils.select_patient(input_tensors, 0)
+
+    # 2. Get the maximum activation for each filter.
+    mean_activation_df = max_act_diff.max_act_diff_calc('Hip Replacement', input_tensors, filters, labels, verbose=verbose, show_plot=show_plot)
+
+    # 3. Find the filter with the maximum activation.
+        # This should have the strongest effect.
+    max_act_filt = utils.get_max_act_filt(mean_activation_df, filters)
+
+    # 4. Element-wise multiplication of the max activation filter by the chosen graph
+    act_graph = calculations.get_act_graph_array(patient_graph, max_act_filt)
+
+    # 5. Get the edge features incl. start and end node, activation, weight, time between (edge value)
+    edges_df = utils.create_edges_df(patient_graph, act_graph)
+
+    # 6. Create a dataframe with the x coordinates for the nodes
+    pos_df = utils.create_position_df(edges_df)
+
+    # 7. Generate a list of possible y locations depending on the number of nodes per visit
+    pos_list = utils.generate_pos_sequence(pos_df['max_codes_per_visit'].max())
+
+    # 8. Add to the dataframe to y get coordinates for the nodes based on the number of nodes per timestep
+    pos_df = utils.map_y_coord_to_node(pos_df, pos_list)
+
+    # 9. Turn the x and y coordinates into a dictionary that can be read by NetworkX
+    pos_dict = utils.create_pos_dict(pos_df)
+
+    # 10. Draw the patient graph with the activated edges
+    draw_edge_activated_graph(edges_df, pos_dict)
