@@ -1,6 +1,19 @@
 import numpy as np
 import pandas as pd
 
+
+def select_patient(input_tensors, num):
+    """Select a single patient. Choose an integer as the patient number.
+
+    Args:
+        input_tensors (np.array): 4D numpy array representing patients EHR graphs.
+        num (int): patient number to choose.
+
+    Returns:
+        np.array: 3D array representing an individuals EHR graph.
+    """
+    return input_tensors[num]
+
 def extract_visit_number(s):
     """Extract the visit number from a string
 
