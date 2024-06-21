@@ -23,7 +23,7 @@ def plot_activation_difference(filter_num_col:pd.DataFrame, diff_col:pd.DataFram
     plt.show()
 
 
-def draw_edge_activated_graph(edges_df, pos_dict):
+def draw_edge_activated_graph(edges_df:pd.DataFrame, pos_dict:pd.DataFrame):
     """Draw an individual patient graph using NetworkX highlighting which edges might 
     be most associated to the prediction.
 

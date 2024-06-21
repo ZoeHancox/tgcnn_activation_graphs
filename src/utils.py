@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def select_patient(input_tensors, num):
+def select_patient(input_tensors:np.array, num:int):
     """Select a single patient. Choose an integer as the patient number.
 
     Args:
@@ -14,7 +14,7 @@ def select_patient(input_tensors, num):
     """
     return input_tensors[num]
 
-def extract_visit_number(s):
+def extract_visit_number(s:str):
     """Extract the visit number from a string
 
     Args:
@@ -45,7 +45,7 @@ def get_max_act_filt(mean_activation_df:pd.DataFrame, filters:np.array):
 
 
 
-def create_edges_df(patient_graph, act_graph):
+def create_edges_df(patient_graph:np.array, act_graph:np.array):
     """Create a DataFrame of the edges of the patient graph, including the start and end nodes
     whether the edge is activated (more than 0), the 'weight' of the activation, and the time 
     between visits.
@@ -89,7 +89,7 @@ def create_edges_df(patient_graph, act_graph):
     return edges_df
 
 
-def create_position_df(edges_df):
+def create_position_df(edges_df:np.array):
     """Create a DataFrame to find the number of nodes per visit.
 
     Args:
@@ -108,7 +108,7 @@ def create_position_df(edges_df):
     return pos_df
 
 
-def generate_pos_sequence(x):
+def generate_pos_sequence(x:int):
     """Generate a list of lists to get y coordinate positions for the nodes
      based on the number of events recorded per visit.
 
@@ -130,7 +130,7 @@ def generate_pos_sequence(x):
     return sequence
 
 
-def get_pos_y_value_per_node(row, pos_list):
+def get_pos_y_value_per_node(row, pos_list:list):
     """Get the y position for each node. Use max_codes_per_visit column to select the sublist 
     and the cumulative_count to get the position from the sublist.
 
@@ -144,7 +144,7 @@ def get_pos_y_value_per_node(row, pos_list):
     max_codes = row['max_codes_per_visit']
     return pos_list[max_codes - 1][cum_count]
 
-def map_y_coord_to_node(pos_df, pos_list):
+def map_y_coord_to_node(pos_df:pd.DataFrame, pos_list:list):
     """Map the y coordinates to the relevant node and correct row.
 
     Args:
@@ -158,7 +158,7 @@ def map_y_coord_to_node(pos_df, pos_list):
     pos_df['y'] = pos_df.apply(lambda row: get_pos_y_value_per_node(row, pos_list), axis=1)
     return pos_df
 
-def create_pos_dict(pos_df):
+def create_pos_dict(pos_df:pd.DataFrame):
     """Make a dictionary with the node name as the key and the x and y coordinates 
     as a tuple value.
 
