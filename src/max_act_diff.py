@@ -61,7 +61,7 @@ def create_max_act_df(class_name:str, pat_graphs:np.array, filters:np.array, lab
     
     return df
 
-def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, labels:list, verbose:bool):
+def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, labels:list, verbose:bool, show_plot:bool):
     """Calculate the max difference between the classes for each filter and return in a dataframe.
 
     Args:
@@ -70,6 +70,7 @@ def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, lab
         filters (np.array): 4D array containing x filters.
         labels (list): list of binary values representing positive or negative outcomes.
         verbose (bool): print or not to print extra dataframes or print statements.
+        show_plot (bool): display graph of max filter activations. 
 
     Returns:
         pd.DataFrame: difference between graph activation in both classes.
@@ -91,8 +92,8 @@ def max_act_diff_calc(class_name:str, pat_graphs:np.array, filters:np.array, lab
 
     if verbose:
         print(mean_activation_df)
-
-    figures.plot_activation_difference(mean_activation_df['Filter'], mean_activation_df['Difference'])
+    if show_plot:
+        figures.plot_activation_difference(mean_activation_df['Filter'], mean_activation_df['Difference'])
 
     return mean_activation_df
 
