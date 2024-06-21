@@ -2,6 +2,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import networkx as nx
+import numpy as np
 
 from src import utils, max_act_diff, calculations
 
@@ -56,7 +57,7 @@ def draw_edge_activated_graph(edges_df, pos_dict):
 
 
 
-def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.array, verbose:bool, show_plot:bool):
+def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.array, labels:list, verbose:bool=False, show_plot:bool=False):
     """Draw an individual patients graph with red edges where the AI model filters have given high weights, 
     representing which edges the patterns associate to the outcome the most. 
 
@@ -64,6 +65,7 @@ def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.
         input_tensors (np.array): 4D array of patient graph representations (3D).
         patient_number (int): Patient to represent as a graph.
         filters (np.array): 4D array of filters from the TG-CNN model (3D).
+        labels (list): Binary outcome (0 or 1) for patient e.g. no replacement or hip replacement.
         verbose (bool): Print extra statements.
         show_plot (bool): Print the maximum activation per filter plot.
     """
