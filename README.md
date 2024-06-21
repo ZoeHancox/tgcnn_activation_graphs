@@ -2,6 +2,21 @@
 
 Produce graphs from the 3D CNN layers from the trained TG-CNN model. These graphs should which edges or timesteps are the most important during model prediction. 
 
+## Activation mapping graphs for edges steps:
+
+* Get the patient 'graph'
+* Get the filter with the strongest differentiation of maximum activation
+* Do element-wise multiplication between the filter and the patient graph
+* Make the edges with zero activation grey
+    * Where an edge is the x and y for each timestep.
+    * A node is a new node even if the node has already been visited.
+    * Nodes can be named e.g. r5_t1 (read code = 5, timestep = 1)
+    * Use the element-wise ('activation') result to colour the edges red if the connection isn't zero.
+    
+Limitations:
+* This method requires there to be no overlap in the CNN windows.
+
+---
 
 The equations of how maximum activation is calculated is as follows:
 
