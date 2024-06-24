@@ -19,7 +19,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Add src to PYTHONPATH
-        run: echo "PYTHONPATH=${PYTHONPATH}:tgcnn_activation_graphs/src" >> $env:GITHUB_ENV
+        run: set PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
 
       - name: Test with pytest
         run: pytest test_graphs/test_calculations.py
