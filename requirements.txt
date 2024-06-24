@@ -2,5 +2,4 @@ networkx
 pandas
 matplotlib
 numpy
-seaborn
 pytest
