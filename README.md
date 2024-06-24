@@ -1,5 +1,8 @@
 # Create Activation Graphs for TG-CNN Model
 
+
+![Tests](https://github.com/gcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
+
 Produce graphs from the 3D CNN layers from the trained TG-CNN model. These graphs should which edges or timesteps are the most important during model prediction. 
 
 ## Activation mapping graphs for edges steps:
@@ -57,3 +60,6 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
     $
     Max Activation Value_{p, k} = \max_{i} \left( leaky ReLU \left( \sum (G_{p}[i:i+F, :, :] \odot f_{k}), \alpha \right) \right)
     $
+
+
+`create_graphs.ipynb` is a notebook that walks you through how to use this code, step by step.
