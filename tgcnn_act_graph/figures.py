@@ -71,7 +71,7 @@ def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.
     """
 
     # 1. Select the patient graph to draw
-    patient_graph = utils.select_patient(input_tensors, 0)
+    patient_graph = utils.select_patient(input_tensors, patient_number)
 
     # 2. Get the maximum activation for each filter.
     mean_activation_df = max_act_diff.max_act_diff_calc('Hip Replacement', input_tensors, filters, labels, verbose=verbose, show_plot=show_plot)
