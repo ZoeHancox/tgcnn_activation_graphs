@@ -18,5 +18,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+
+      - name: Print PYTHONPATH before modification
+        run: |
+          echo "Current PYTHONPATH: %PYTHONPATH%"
+
+      - name: Add src to PYTHONPATH
+        run: |
+          echo "PYTHONPATH=%PYTHONPATH%;%cd%/src" >> %GITHUB_ENV%
+
+      - name: Print PYTHONPATH after modification
+        run: |
+          echo "Modified PYTHONPATH: %PYTHONPATH%"
+
       - name: Test with pytest
         run: pytest test_graphs/test_calculations.py
