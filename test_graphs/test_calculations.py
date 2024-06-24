@@ -1,8 +1,10 @@
+import pytest # noqa: F401
 import numpy as np
 import pandas as pd
 import os
-os.chdir("../")
-from src import utils, max_act_diff, figures, calculations
+print(os.getcwd())
+
+from src import utils, max_act_diff, figures, calculations  # noqa: E402
 
 test_pats = np.array([[[[0, 0, 0], 
                           [0, 0, 3], 
