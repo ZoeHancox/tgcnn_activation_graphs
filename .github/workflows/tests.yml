@@ -21,15 +21,15 @@ jobs:
 
       - name: Print PYTHONPATH before modification
         run: |
-          echo Current PYTHONPATH: %PYTHONPATH%
+          echo "Current PYTHONPATH: $env:PYTHONPATH"
 
       - name: Add src to PYTHONPATH
         run: |
-          echo PYTHONPATH=%PYTHONPATH%;%cd%/src >> %GITHUB_ENV%
+          echo "PYTHONPATH=$env:PYTHONPATH;$($PWD.Path)/src" >> $env:GITHUB_ENV
 
       - name: Print PYTHONPATH after modification
         run: |
-          echo Modified PYTHONPATH: %PYTHONPATH%
+          echo "Modified PYTHONPATH: $env:PYTHONPATH"
 
       - name: Test with pytest
         run: pytest test_graphs/test_calculations.py
