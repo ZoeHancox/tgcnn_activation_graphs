@@ -1,7 +1,7 @@
 # Create Activation Graphs for TG-CNN Model
 
 
-![Tests](https://github.com/gcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/ZoeHancox/gcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
 
 Produce graphs from the 3D CNN layers from the trained TG-CNN model. These graphs should which edges or timesteps are the most important during model prediction. 
 
