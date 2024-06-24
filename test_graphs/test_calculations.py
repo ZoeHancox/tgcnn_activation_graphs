@@ -1,6 +1,7 @@
-import pytest
 import numpy as np
 import pandas as pd
+import os
+os.chdir("../")
 from src import utils, max_act_diff, figures, calculations
 
 test_pats = np.array([[[[0, 0, 0], 
@@ -72,7 +73,6 @@ test_filt = np.array([[[0, 0, 1],
                                         [0, 0, 0]]])
 
 labels = [0, 1, 1, 0] #hip_replacement labels
-
 def test_y_coord_list_gen():
     """Test the lists generated for the y coordinates of the nodes
     are generating as expected.
