@@ -21,5 +21,8 @@ jobs:
       - name: Add src to PYTHONPATH
         run: set PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
 
+      - name: Print PYTHONPATH after modification
+        run: echo "Modified PYTHONPATH: ${PYTHONPATH}"
+
       - name: Test with pytest
         run: pytest test_graphs/test_calculations.py
