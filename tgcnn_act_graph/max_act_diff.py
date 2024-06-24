@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src import calculations, figures
+from tgcnn_act_graph import calculations, figures
 
 def create_max_act_df(class_name:str, pat_graphs:np.array, filters:np.array, labels:list, verbose:bool):
     """Calculate the maximum activation from each filter on each patient graph. Running a filter over

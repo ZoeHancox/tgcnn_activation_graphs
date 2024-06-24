@@ -4,7 +4,7 @@ import pandas as pd
 import networkx as nx
 import numpy as np
 
-from src import utils, max_act_diff, calculations
+from tgcnn_act_graph import utils, max_act_diff, calculations
 
 def plot_activation_difference(filter_num_col:pd.DataFrame, diff_col:pd.DataFrame):
     """_summary_

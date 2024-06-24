@@ -4,7 +4,7 @@ import pandas as pd
 import os
 print(os.getcwd())
 
-from src import utils, max_act_diff, figures, calculations  # noqa: E402
+from tgcnn_act_graph import utils, max_act_diff, figures, calculations  # noqa: E402
 
 test_pats = np.array([[[[0, 0, 0], 
                           [0, 0, 3], 
