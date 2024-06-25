@@ -146,6 +146,7 @@ Features to come:
 
 - [x] Show edge activation using NetworkX
 - [ ] Add a list of your own node names rather than using ints
+- [ ] Rules so that only fully connected graphs can be input
 - [ ] Show time step activation using NetworkX
 
 ## SUPPORT
