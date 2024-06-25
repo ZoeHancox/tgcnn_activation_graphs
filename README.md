@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-![Tests](https://github.com/ZoeHancox/tgcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/ZoeHancox/tgcnn_activation_graphs/actions/workflows/tests.yml/badge.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12532788.svg)](https://doi.org/10.5281/zenodo.12532788)
 
 Produce graphs using the 3D CNN layers from the trained [TG-CNN model](https://dl.acm.org/doi/10.1007/978-3-031-16564-1_34). These graphs show which edges or timesteps are the most important during model prediction.
 
