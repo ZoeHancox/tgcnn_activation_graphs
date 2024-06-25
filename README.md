@@ -37,8 +37,8 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
 
 1. Extract the slice:
 
-   Let \( W_{i}^{(p, k)} = G_{p}[i:i+F, :, :] \).
-
+   $W_{i}^{(p, k)}$ = $G_{p}[i:i+F, :, :]$,
+   
    
    where $F$ is the size of the filter in the time dimension, $G_{p}$ as the input tensor for patient $p$, $f_{k}$ as the $k$-th filter, and $W_{i}^{(p, k)}$ is the slice of the tensor $G_{p}$ at time step $i$ with the same dimensions as the filter $f_{k}$.
 
@@ -75,10 +75,13 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
 The main code is found in the `tgcnn_act_graph` folder of the repository. See Usage below for more information.
 
 ```
+├── documentation             # Images and other background files
+├── test_graphs               # Tests for tgcnn_act_graph
 ├── tgcnn_act_graph           # Source files
-├── create_graphs.ipynb       # Example of how to use this code
+├── create_graphs.ipynb       # Example of how to use this code locally
+├── LICENSE.txt
 ├── README.md
-└── requirements.txt
+└── requirements.txt          # Which packages are required to run this code
 ```
 
 ### BUILT WITH
