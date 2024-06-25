@@ -1,27 +1,32 @@
-# Create Activation Graphs for TG-CNN Model
+# Create Activation Graphs from the TG-CNN Model
 
+## About the Project
 
 ![Tests](https://github.com/ZoeHancox/tgcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
 
-Produce graphs from the 3D CNN layers from the trained TG-CNN model. These graphs should which edges or timesteps are the most important during model prediction. 
+Produce graphs using the 3D CNN layers from the trained [TG-CNN model](https://dl.acm.org/doi/10.1007/978-3-031-16564-1_34). These graphs show which edges or timesteps are the most important during model prediction. 
 
-## Activation mapping graphs for edges steps:
+### Activation mapping graphs for edges steps:
 
-* Get the patient 'graph'
-* Get the filter with the strongest differentiation of maximum activation
-* Do element-wise multiplication between the filter and the patient graph
-* Make the edges with zero activation grey
-    * Where an edge is the x and y for each timestep.
-    * A node is a new node even if the node has already been visited.
-    * Nodes can be named e.g. r5_t1 (read code = 5, timestep = 1)
-    * Use the element-wise ('activation') result to colour the edges red if the connection isn't zero.
-    
-Limitations:
-* This method requires there to be no overlap in the CNN windows.
+The GIF below shows how the filters from the 3D CNN layer are used to show edge activation per input graph:
+
+![Edge activation graph](documentation/edge_activation_graph.gif)
+
+1. Extract the filters from the 3D CNN layer of the TG-CNN model.
+2. Find the filter with the strongest differentiation of maximum activation between the positive and negative class amongst all the input graphs.
+3. Select the filter with the largest activation difference to show edge activation.
+4. Make the stride length the same as the number of timesteps in the filter.
+5. Do element-wise multiplication between the filter and the input graph, to get the edge activation tensor.
+6. Use the edge activation tensor to get weights for the edges. Edges with zero activation are grey, edges with activation are red. The higher the edge activation weight the thicker the edge.
+7. Observe which edges affect the prediction outcome. Nodes are named as e.g. 5_t1 (Read Code = 5, timestep = 1).
+
+![Edge activation graph plot from code](documentation/edge_activation_graph_output.png)
+
+
+
 
 ---
-
-The equations of how maximum activation is calculated is as follows:
+### Equation
 
 To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step $i$, the process can be summarised as:
 
@@ -61,5 +66,55 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
     Max Activation Value_{p, k} = \max_{i} \left( leaky ReLU \left( \sum (G_{p}[i:i+F, :, :] \odot f_{k}), \alpha \right) \right)
     $
 
+## PROJECT STRUCTURE
 
-`create_graphs.ipynb` is a notebook that walks you through how to use this code, step by step.
+The main code is found in the `tgcnn_act_graph` folder of the repository. See Usage below for more information.
+
+```
+├── tgcnn_act_graph           # Source files
+├── create_graphs.ipynb       # Example of how to use this code
+├── README.md
+└── requirements.txt
+```
+
+### BUILT WITH
+[![Python v3.8](https://img.shields.io/badge/python-v3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+- [NumPy](https://numpy.org/)
+- [NetworkX](https://networkx.org/)
+
+### Getting Started
+
+#### Installation
+
+To get a local copy up and running follow these simple steps.
+
+To clone the repo:
+
+`git clone https://github.com/ZoeHancox/tgcnn_activation_graphs`
+
+To create a suitable environment we suggest:
+- Build conda environment via `conda create --name graph_viz python=3.8`
+- Activate environment `conda activate graph_viz`
+- Install requirements via `python -m pip install -r ./requirements.txt`
+
+
+## USAGE
+
+See examples in `create_graphs.ipynb` for how to use this code.
+
+## ROADMAP
+
+See the [Issues](https://github.com/ZoeHancox/tgcnn_activation_graphs/issues) in GitHub for a list of proposed features and known issues.
+
+
+## TESTING
+
+Run tests by using `pytest test_graphs/test_calculations.py` in the top directory.
+
+## LICENSE
+
+Unless stated otherwise, the codebase is released under the BSD Licence. This covers both the codebase and any sample code in the documentation.
+
+See [LICENCE](https://github.com/ZoeHancox/tgcnn_activation_graphs/blob/main/LICENSE.txt) for more information.
+
+## ACKNOWLEDGEMENTS
