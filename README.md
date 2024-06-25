@@ -67,13 +67,13 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
 The main code is found in the `tgcnn_act_graph` folder of the repository. See Usage below for more information.
 
 ```
-├── documentation             # Images and other background files
-├── test_graphs               # Tests for tgcnn_act_graph
-├── tgcnn_act_graph           # Source files
-├── create_graphs.ipynb       # Example of how to use this code locally
-├── LICENSE.txt
-├── README.md
-└── requirements.txt          # Which packages are required to run this code
+|-- documentation             # Images and other background files
+|-- test_graphs               # Tests for tgcnn_act_graph
+|-- tgcnn_act_graph           # Source files
+|-- create_graphs.ipynb       # Example of how to use this code locally
+|-- LICENSE.txt
+|-- README.md
+|__ requirements.txt          # Which packages are required to run this code
 ```
 
 ### BUILT WITH
