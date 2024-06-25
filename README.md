@@ -1,6 +1,6 @@
 # Create Activation Graphs from the TG-CNN Model
 
-## About the Project
+## ABOUT
 
 ![Tests](https://github.com/ZoeHancox/tgcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
 
@@ -81,10 +81,10 @@ The main code is found in the `tgcnn_act_graph` folder of the repository. See Us
 - [NumPy](https://numpy.org/)
 - [NetworkX](https://networkx.org/)
 
-### Getting Started and Installation
+## INSTALLATION
 
 
-#### To clone the repo:
+### To clone the repo:
 
 To clone this repository:
 - Open Git Bash, your Command Prompt or Powershell
@@ -99,7 +99,7 @@ To create a suitable environment we suggest using Anaconda:
 
 ---
 
-#### To install the package:
+### To install the package:
 
 - Build conda environment: `conda create --name graph_viz python=3.8`
 - Activate environment: `conda activate graph_viz`
