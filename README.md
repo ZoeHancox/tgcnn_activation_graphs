@@ -56,11 +56,11 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
 
 4. Compute the maximum activation value ($M$) across all time steps:
    
-   $ M_{p, k}$ = $\max_{i} (A_{i}^{(p, k)})$
+   $M_{(p, k)}$ = $\max_{i} (A_{i}^{(p, k)})$
 
 5. Combine these into one formula:
 
-    $M_{p, k}$ = $\max_{i} \left( leaky ReLU \left( \sum (G_{p}[i:i+F, :, :] \odot f_{k}), \alpha \right) \right)$
+    $M_{(p, k)}$ = $\max_{i} \left( leaky ReLU \left( \sum (G_{p}[i:i+F, :, :] \odot f_{k}), \alpha \right) \right)$
 
 ## PROJECT STRUCTURE
 
