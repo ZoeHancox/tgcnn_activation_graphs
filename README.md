@@ -4,7 +4,12 @@
 
 ![Tests](https://github.com/ZoeHancox/tgcnn_activation_graphs/actions/workflows/tests.yml/badge.svg)
 
-Produce graphs using the 3D CNN layers from the trained [TG-CNN model](https://dl.acm.org/doi/10.1007/978-3-031-16564-1_34). These graphs show which edges or timesteps are the most important during model prediction. 
+Produce graphs using the 3D CNN layers from the trained [TG-CNN model](https://dl.acm.org/doi/10.1007/978-3-031-16564-1_34). These graphs show which edges or timesteps are the most important during model prediction.
+
+> [!IMPORTANT]
+> _Please note that the examples provided in this repository are fictitious and do not contain any real patient data._  
+
+
 
 ### Activation mapping graphs for edges steps:
 
@@ -32,9 +37,8 @@ To get the edge weights: For a given filter $f_{k}$, patient $p$, and time step 
 
 1. Extract the slice:
 
-   $
-   W_{i}^{(p, k)} = G_{p}[i:i+F, :, :],
-   $
+   Let \( W_{i}^{(p, k)} = G_{p}[i:i+F, :, :] \).
+
    
    where $F$ is the size of the filter in the time dimension, $G_{p}$ as the input tensor for patient $p$, $f_{k}$ as the $k$-th filter, and $W_{i}^{(p, k)}$ is the slice of the tensor $G_{p}$ at time step $i$ with the same dimensions as the filter $f_{k}$.
 
@@ -82,29 +86,76 @@ The main code is found in the `tgcnn_act_graph` folder of the repository. See Us
 - [NumPy](https://numpy.org/)
 - [NetworkX](https://networkx.org/)
 
-### Getting Started
+### Getting Started and Installation
 
-#### Installation
 
-To get a local copy up and running follow these simple steps.
+#### To clone the repo:
 
-To clone the repo:
-
+To clone this repository:
+- Open Git Bash, your Command Prompt or Powershell
+- Navigate to the directory where you want to clone this repository: `cd/path/to/directory`
+- Run git clone command:
 `git clone https://github.com/ZoeHancox/tgcnn_activation_graphs`
 
-To create a suitable environment we suggest:
-- Build conda environment via `conda create --name graph_viz python=3.8`
-- Activate environment `conda activate graph_viz`
-- Install requirements via `python -m pip install -r ./requirements.txt`
+To create a suitable environment we suggest using Anaconda:
+- Build conda environment: `conda create --name graph_viz python=3.8`
+- Activate environment: `conda activate graph_viz`
+- Install requirements: `python -m pip install -r ./requirements.txt`
+
+---
+
+#### To install the package:
+
+- Build conda environment: `conda create --name graph_viz python=3.8`
+- Activate environment: `conda activate graph_viz`
+- Install package: `pip install tgcnn-act-graph`
 
 
 ## USAGE
 
 See examples in `create_graphs.ipynb` for how to use this code.
 
+If you have installed the package you can:
+
+```
+from tgcnn_act_graph.figures import edge_activated_graph
+import numpy as np
+
+# Load or create your 4D filters
+filters = np.array([[[[0, 0], 
+                      [0, 1]], [[1, 1], 
+                                [0, 0]]], 
+                     [[[0, 1], 
+                        [0, 1]], [[1, 0], 
+                                 [0, 0]]]])
+
+# Load or create your 4D patient graphs
+input_tensors = np.array([[[[0, 0], 
+                          [0, 3]], [[0, 0],
+                                    [4, 0]], [[8, 8], 
+                                             [0, 0]]],                        
+                        [[[7, 0], 
+                          [0, 0]], [[9, 0],
+                                    [0, 0]], [[4, 4], 
+                                             [0, 0]]]])
+
+
+labels = [0, 1] # positive or negative labels
+
+edge_activated_graph(input_tensors=input_tensors, patient_number=1,  filters=filters, labels=labels, verbose=False, show_plot=False)
+```
+
 ## ROADMAP
 
-See the [Issues](https://github.com/ZoeHancox/tgcnn_activation_graphs/issues) in GitHub for a list of proposed features and known issues.
+Features to come:
+
+- [x] Show edge activation using NetworkX
+- [ ] Add a list of your own node names rather than using ints
+- [ ] Show time step activation using NetworkX
+
+## SUPPORT
+
+See the [Issues](https://github.com/ZoeHancox/tgcnn_activation_graphs/issues) in GitHub for a list of proposed features and known issues. Contact [Zoe Hancox](mailto:Z.L.Hancox@Leeds.ac.uk) for further support. 
 
 
 ## TESTING
@@ -118,3 +169,5 @@ Unless stated otherwise, the codebase is released under the BSD Licence. This co
 See [LICENCE](https://github.com/ZoeHancox/tgcnn_activation_graphs/blob/main/LICENSE.txt) for more information.
 
 ## ACKNOWLEDGEMENTS
+
+The TG-CNN model was developed using data provided by patients and collected by the NHS as part of their care and support. 
