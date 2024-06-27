@@ -9,7 +9,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name="tgcnn_act_graph",
-    version="0.3",
+    version="0.3.1",
     packages=find_packages(),
     install_requires=install_requirements,
     long_description=description,
