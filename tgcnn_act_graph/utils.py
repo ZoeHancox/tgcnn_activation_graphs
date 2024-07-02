@@ -172,3 +172,15 @@ def create_pos_dict(pos_df:pd.DataFrame):
     # the visit number is x and the y value is the number of nodes with the same visit number
     pos = pos_df.set_index('node')[['x', 'y']].apply(tuple, axis=1).to_dict()
     return pos
+
+def flip_graph(patient_graph:np.array, filter_graph:np.array):
+    """Flip the 3D Tensor so that the most recent event is at the front rather than the back.
+
+    Args:
+        patient_graph (np.array): 3D Tensor representing the patient graph.
+        filter_graph (np.array): 3D Tensor of the filter.
+
+    Returns:
+        np.array: flipped tensors with the most recent event at the front
+    """
+    return np.flip(patient_graph, axis=0), np.flip(filter_graph, axis=0)

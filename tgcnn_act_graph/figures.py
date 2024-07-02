@@ -80,6 +80,7 @@ def edge_activated_graph(input_tensors:np.array, patient_number:int, filters:np.
     max_act_filt = utils.get_max_act_filt(mean_activation_df, filters)
 
     # 4. Element-wise multiplication of the max activation filter by the chosen graph
+    patient_graph, max_act_filt = utils.flip_graph(patient_graph, max_act_filt)
     act_graph = calculations.get_act_graph_array(patient_graph, max_act_filt)
 
     # 5. Get the edge features incl. start and end node, activation, weight, time between (edge value)
