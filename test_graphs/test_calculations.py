@@ -160,10 +160,23 @@ def test_extract_visit_num():
     assert true_visit_num == test_visit_num, "True visit number should equal test visit number"
     assert false_visit_num != test_visit_num, "True visit number should equal test visit number not EHR code number"
 
-# TODO: Test that the repeat_array_fractional function is repeating correctly
+
+def test_repeat_array_fractional():
+    """Test to make sure filter is repeating correctly.
+    """
+    repeat = 2.5
+    test_repeat_array_fractional = calculations.repeat_array_fractional(test_filt, repeat)
+    true_repeated_filter = np.array([[[0, 0, 1], 
+                                    [0, 1, 0], 
+                                    [0, 0, 1]], [[1, 1, 0], 
+                                                [0, 0, 0], 
+                                                [0, 0, 0]], [[0, 0, 1], 
+                                                            [0, 1, 0], 
+                                                            [0, 0, 1]], [[1, 1, 0], 
+                                                                        [0, 0, 0], 
+                                                                        [0, 0, 0]], [[0, 0, 1], 
+                                                                                    [0, 1, 0], 
+                                                                                    [0, 0, 1]]])
+    assert np.array_equal(true_repeated_filter, test_repeat_array_fractional), "The filter should be 5 timesteps"    
 
 
-# def test_repeat_array_fractional():
-#     """Test to make sure filter is repeating correctly.
-#     """
-    
